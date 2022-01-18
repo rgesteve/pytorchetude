@@ -17,7 +17,7 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 #     && pip install --no-cache-dir pipx \
 #     && pipx reinstall-all
 
-RUN conda install -y pytorch
+RUN conda install -y pytorch onnxmltools frontmatter
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
