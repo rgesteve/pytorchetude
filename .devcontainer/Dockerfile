@@ -18,6 +18,8 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 #     && pipx reinstall-all
 
 RUN conda install -y pytorch onnxmltools frontmatter
+# apparently this is still not packaged in conda
+RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
