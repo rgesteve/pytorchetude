@@ -1,0 +1,3 @@
+[submodule "deep_tabular_augmentation"]
+	path = deep_tabular_augmentation
+	url = https://github.com/lschmiddey/deep_tabular_augmentation.git
