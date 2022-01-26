@@ -17,9 +17,12 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 #     && pip install --no-cache-dir pipx \
 #     && pipx reinstall-all
 
-RUN conda install -y pytorch onnxmltools frontmatter
+RUN conda install -y pytorch onnxmltools frontmatter pandas
 # apparently this is still not packaged in conda
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
+
+#RUN wget https://github.com/nsethi31/Kaggle-Data-Credit-Card-Fraud-Detection/raw/master/creditcard.csv
+#RUN wget https://raw.githubusercontent.com/nsethi31/Kaggle-Data-Credit-Card-Fraud-Detection/master/creditcard.csv
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
