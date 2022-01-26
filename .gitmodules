@@ -1,3 +1,6 @@
 [submodule "deep_tabular_augmentation"]
 	path = deep_tabular_augmentation
 	url = https://github.com/lschmiddey/deep_tabular_augmentation.git
+[submodule "ml_prepare"]
+	path = ml_prepare
+	url = https://github.com/lschmiddey/ml_prepare
