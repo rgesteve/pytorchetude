@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys
-#sys.path.append('../ml_prepare')
 sys.path.append('../deep_tabular_augmentation')
 
 import torch
@@ -29,14 +28,14 @@ def main():
         print(f"Cannot find specified path {input_file}.")
         sys.exit(1)
     df = pd.read_csv(input_file)
-
-    print(f"Read dataframe with columns: {df.columns} (should be removing {target_field}).")
+    columns = list(df.columns)
+    columns.remove(target_field)
 
     mu,logvar = torch.load('embeddings.pth')
     sigma = torch.exp(logvar / 2)
     q = torch.distributions.Normal(mu.mean(axis=0), sigma.mean(axis=0))
     z = q.rsample(sample_shape=torch.Size([samples_to_generate]))
-    D_in = 13
+    D_in = len(columns)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     model = dta.Autoencoder(nn.Sequential(*dta.get_lin_layers(D_in, [50, 12, 12])),
@@ -49,10 +48,11 @@ def main():
     with torch.no_grad():
         pred = model.decode(z).cpu().numpy()
 
-    print('The shape I built has shape:')
-    print(pred.shape)
-    print('Ran from main!')
+    output_df = pd.DataFrame(data=pred, columns=columns)
+    output_df.to_csv('out.csv')
+
+    print('Wrote output to out.csv')
 
 if __name__ == '__main__':
     main()
-    print("Hello, world!")
+
