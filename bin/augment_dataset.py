@@ -8,12 +8,31 @@ import torch
 from torch import nn
 
 import pandas as pd
+import argparse
+import os
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--input_file", type=str, required=True)
+parser.add_argument("--target_field", type=str, required=True)
+parser.add_argument("--output_size", type=int, required=True, default=100)
 
 import deep_tabular_augmentation as dta
 
 def main():
+    args = parser.parse_args()
+    samples_to_generate = args.output_size
+    print(f"Should be aiming to create {samples_to_generate} records.")
+
+    input_file = args.input_file
+    target_field = args.target_field
+    if not os.path.exists(input_file):
+        print(f"Cannot find specified path {input_file}.")
+        sys.exit(1)
+    df = pd.read_csv(input_file)
+
+    print(f"Read dataframe with columns: {df.columns} (should be removing {target_field}).")
+
     mu,logvar = torch.load('embeddings.pth')
-    samples_to_generate = 1000
     sigma = torch.exp(logvar / 2)
     q = torch.distributions.Normal(mu.mean(axis=0), sigma.mean(axis=0))
     z = q.rsample(sample_shape=torch.Size([samples_to_generate]))
