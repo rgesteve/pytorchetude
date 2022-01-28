@@ -22,6 +22,7 @@ RUN conda install -y pytorch onnxmltools frontmatter pandas matplotlib
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 
 #RUN wget https://github.com/nsethi31/Kaggle-Data-Credit-Card-Fraud-Detection/raw/master/creditcard.csv
+#RUN wget https://gist.githubusercontent.com/tijptjik/9408623/raw/b237fa5848349a14a14e5d4107dc7897c21951f5/wine.csv
 #RUN wget https://raw.githubusercontent.com/nsethi31/Kaggle-Data-Credit-Card-Fraud-Detection/master/creditcard.csv
 #RUN pip install -U git+https://github.com/lschmiddey/deep_tabular_augmentation.git@5328657
 
